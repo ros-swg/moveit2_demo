@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>moveit2_demo</name>
+  
+  <version>0.0.0</version>
+
+  <description>
+    ROS 2 packages for MoveIt2 demo
+  </description>
+
+  <license>Apache 2.0</license>
+
+  <url type="repository">https://github.com/ros-swg/moveit2_demo</url>
+  <url type="bugtracker">https://github.com/ros-swg/moveit2_demo/issues</url>
+
+  <maintainer email="roxfoxpox@gmail.com">Ruffin White</maintainer>
+  <author email="roxfoxpox@gmail.com">Ruffin White</author>
+  <author email="mikael.arguedas@gmail.com">Mikael Arguedas</author>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>moveit</exec_depend>
+  <exec_depend>desktop</exec_depend>
+  <exec_depend>moveit2_tutorials</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
