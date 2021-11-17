@@ -1,4 +1,4 @@
-ARG FROM_IMAGE=ruffsl/moveit2:rolling
+ARG FROM_IMAGE=ros:foxy
 ARG OVERLAY_WS=/opt/ros/overlay_ws
 
 # multi-stage for caching
