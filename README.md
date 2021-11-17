@@ -1,6 +1,6 @@
-# Secure Turtlebot3 Demo
+# Secure MoveIt2 Demo
 
-This repository includes a demo for securing a simulated Turtlebot3 using SROS2; including sensor and control topics as well the relevant portions of the slam_toolbox and navigation2 software stacks.
+This repository includes a demo for securing MoveIt2 using SROS2; including sensor and control topics as well the relevant portions of the UX and planning software stacks.
 
 ## Setting the Demo
 
@@ -11,7 +11,7 @@ To run this demo using docker, the following dependencies are required:
   * Other linux distributions may work, but we'll focus on ubuntu.
 * [docker](https://www.docker.com/)
   * Prior to workshop, please pull this large image ahead of time:
-  * `docker pull rosswg/turtlebot3_demo:roscon19`
+  * `docker pull rosswg/moveit2_demo:latest`
 * [rocker](https://github.com/osrf/rocker)
   * Please ensure display forwarding is working with rocker.
   * [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) is also useful for those with a GPU.
@@ -25,25 +25,24 @@ To run this demo using docker, the following dependencies are required:
 Start by attaching to a byobu session in a new container using rocker. [Byobu](http://www.byobu.org/) is simple wrapper for tmux, where the `F2` key creates and new window, and  `F3`/`F4` move focus among windows, and `Shift-<arrow-keys>` to move focus among window splits. To later exit the entire session, `F6` will exit from byobu and subsequently stop the container and all child processes. Use `Shift-F1` to displays all keybindings. Omit the `--nvidia` arg if you don't have dedicated GPU for hardware acceleration of 3D OpenGL views:
 
 ``` bash
-rocker --x11 --nvidia rosswg/turtlebot3_demo:roscon19 "byobu -f configs/unsecure.conf attach"
+rocker --x11 --nvidia rosswg/moveit2_demo:latest "byobu -f configs/unsecure.conf attach"
 ```
 
 ![](media/mapping_start.png)
 
-Byobu starts a new session and launch the turtlebot3 demo over several windows:
+Byobu starts a new session and launch the moveit2 demo over several windows:
 
-* `turtlebot`
-  * turtlebot3 gazebo simulation
-  * keyboard control teleportation
+* `simulation`
+  * moveit2 gazebo simulation
+  * rviz robot visualization
   * echo command velocity
-* `navigation`
-  * navigation2 planning stack
-  * initialize pose script
-  * navigation goal script
-* `mapping`
-  * slam_toolbox mapping stack
-  * save map file
-  * map topic info
+* `teleoperation`
+  * manual teleoperation
+  * joint level control
+  * euclidean end-effector control
+* `planning`
+  * goal pose script
+  * follow trajectory script
 * `sros`
   * tree view of keystore
   * generate artifacts command
@@ -61,10 +60,10 @@ Feel free to poke around, open a new window and list or echo topics and services
 
 ## Running the secure demo:
 
-So far we've simply launched the turtlebot3 without using SROS2. To enable security, simply exit the previous byobu session and start a new one now using the secure config:
+So far we've simply launched moveit2 without using SROS2. To enable security, simply exit the previous byobu session and start a new one now using the secure config:
 
 ``` bash
-rocker --x11 --nvidia rosswg/turtlebot3_demo:roscon19 "byobu -f configs/secure.conf attach"
+rocker --x11 --nvidia rosswg/moveit2_demo:latest "byobu -f configs/secure.conf attach"
 ```
 
 This config is the exact same as the previous one, apart from a few SROS2 related environment variables that are exported:
@@ -151,9 +150,9 @@ Now try starting another teleop node with security disabled and check that only 
 To rebuild this demo locally if you are working on it, you can rebuild the Docker image with the same tag, so all above demo commands will work correctly.
 
 ``` bash
-git clone git@github.com:ros-swg/turtlebot3_demo.git
-cd turtlebot3_demo
-docker build --tag rosswg/turtlebot3_demo .
+git clone git@github.com:ros-swg/moveit2_demo.git
+cd moveit2_demo
+docker build --tag rosswg/moveit2_demo .
 ```
 
 To attach the demo to the host's network interfaces, you may need to run the container as privileged to get the rviz and gazebo GUI to adapt with the dbus, while also using the host's PID and IPC namespace to avoid issues with colliding DDS GUIDs as referenced in this answers.ros.org question [here](https://answers.ros.org/question/296828/ros2-connectivity-across-docker-containers-via-host-driver)
@@ -164,6 +163,6 @@ rocker --x11 --nvidia --oyr-run-arg " \
     --net=host \
     --pid=host \
     --privileged" \
-  rosswg/turtlebot3_demo \
+  rosswg/moveit2_demo \
   "byobu -f configs/unsecure.conf attach"
 ```
