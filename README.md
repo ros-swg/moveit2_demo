@@ -71,7 +71,7 @@ This config is the exact same as the previous one, apart from a few SROS2 relate
 ``` bash
 export ROS_SECURITY_ENABLE=true
 export ROS_SECURITY_STRATEGY=Enforce
-export ROS_SECURITY_ROOT_DIRECTORY=$TB3_DEMO_DIR/keystore
+export ROS_SECURITY_ROOT_DIRECTORY=$MOVEIT2_DEMO_DIR/keystore
 export ROS_SECURITY_LOOKUP_TYPE=MATCH_PREFIX
 ```
 
@@ -84,7 +84,7 @@ These variables simply enable as well as enforce security for all ros2 nodes whi
 Using the same attached session above, now lets try and generate security artifacts for ourselves, rather than simply using the same artifacts that came bundled in the demo docker image. We can start by switching over to the sros window and clearing out the existing keystore:
 
 ``` bash
-cd $TB3_DEMO_DIR
+cd $MOVEIT2_DEMO_DIR
 rm -r keystore/*/
 ```
 
