@@ -162,7 +162,8 @@ rocker --x11 --nvidia --oyr-run-arg " \
     --ipc=host \
     --net=host \
     --pid=host \
-    --privileged" \
+    --privileged \
+    --volume $(pwd)/configs:/opt/ros/configs" \
   rosswg/moveit2_demo \
   "byobu -f configs/unsecure.conf attach"
 ```
